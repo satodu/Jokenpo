@@ -1,0 +1,1 @@
+This is a simple Jokenpo game just to make a video with some simply functionalities of Javascript
