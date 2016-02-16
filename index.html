@@ -1,0 +1,74 @@
+<script type="text/javascript">
+	function player(){
+		this.name;
+		this.choice;
+	}
+
+	//função que cria a escolha aleatória do computador
+	function computerChoice(){
+		var checkin = Math.floor((Math.random() * 10) + 1);
+		if ( checkin > 0 && checkin < 3 ){
+			return "Tesoura";
+		}
+
+		else if ( checkin > 3 && checkin < 7 ){
+			return "Papel";
+		}
+
+		else {
+			return "Pedra";
+		}
+
+	}
+
+	//função que cria batalha
+	function battle(choice1, choice2){
+		 if (choice1 === choice2){
+        return "The result is a tie!";        
+        }
+    else if (choice1 === "Pedra"){
+        if (choice2 ==="Tesoura"){
+            return "Pedra";
+            }
+        else {
+            return "Papel";
+            }    
+        }
+        
+    else if (choice1 === "Papel"){
+        if (choice2 ==="Pedra"){
+            return "Papel";
+            }
+        else {
+            return "Tesoura";
+            }    
+        }
+    else if (choice1 === "Tesoura"){
+        if (choice2 ==="Papel"){
+            return "Papel";
+            }
+        else {
+            return "Pedra";
+            }    
+        }
+    }
+	
+
+
+
+var p1 = new player();
+var computer = new player();
+computer.choice = computerChoice();
+
+p1.name = prompt('Qual é seu nome ?');
+p1.choice = prompt('Escolha Pedra, Papel ou Tesoura ?');
+alert('O computador escolheu '+computer.choice);
+
+var result = battle(p1.choice,computer.choice);
+if (p1.choice === result){
+	alert('Você ganhou escolhendo '+ result);
+}
+else {
+	alert('Você perdeu escolhendo '+ p1.choice);
+}
+</script>
