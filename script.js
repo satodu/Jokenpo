@@ -37,8 +37,8 @@ const invitePeerId = urlParams.get('room');
 
 if (invitePeerId) {
     // If invited, adjust UI to focus on joining
-    const pvcBtn = document.querySelector('button[onclick="joinGame(\'pvc\')"]');
-    const pvpBtn = document.querySelector('button[onclick="joinGame(\'pvp\')"]');
+    const pvcBtn = document.getElementById('btn-pvc');
+    const pvpBtn = document.getElementById('btn-pvp');
 
     if (pvcBtn) pvcBtn.style.display = 'none';
     if (pvpBtn) {
