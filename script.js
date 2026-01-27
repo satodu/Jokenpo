@@ -36,7 +36,16 @@ const urlParams = new URLSearchParams(window.location.search);
 const invitePeerId = urlParams.get('room');
 
 if (invitePeerId) {
-    // Optional: Auto-select or highlight
+    // If invited, adjust UI to focus on joining
+    const pvcBtn = document.querySelector('button[onclick="joinGame(\'pvc\')"]');
+    const pvpBtn = document.querySelector('button[onclick="joinGame(\'pvp\')"]');
+
+    if (pvcBtn) pvcBtn.style.display = 'none';
+    if (pvpBtn) {
+        pvpBtn.textContent = 'Entrar no Jogo';
+        pvpBtn.classList.add('btn-primary'); // Make it pop more
+        pvpBtn.classList.remove('btn-secondary');
+    }
 }
 
 function showScreen(screenName) {

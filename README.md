@@ -2,7 +2,9 @@
 
 A modern, real-time Rock-Paper-Scissors game that runs entirely in the browser using Peer-to-Peer (WebRTC) technology.
 
-**Play now**: [Your GitHub Pages Link Here]
+**Play now**: [https://satodu.github.io/Jokenpo/](https://satodu.github.io/Jokenpo/)
+
+![Neon Jokenpo Screenshot](screenshot.png)
 
 ## Features
 - **PvC Mode**: Play against the computer immediately.
@@ -12,16 +14,15 @@ A modern, real-time Rock-Paper-Scissors game that runs entirely in the browser u
 - **Neon UI**: Modern dark theme with neon animations.
 - **Celebrations**: Confetti party on victory! 🎉
 
-## How to Deploy (GitHub Pages)
-Since this game uses PeerJS, it is a static site and can be hosted for free on GitHub Pages.
+## How to Get Your Own Copy (Fork)
+Want to host your own version of the game?
 
-1.  **Fork/Clone** this repository.
-2.  Go to **Settings** > **Pages**.
+1.  Click the **Fork** button at the top right of this repository.
+2.  Once forked to your account, go to **Settings** > **Pages**.
 3.  Under **Source**, select `Deploy from a branch`.
-4.  Select your branch (e.g., `main`) and the folder as `/public` (if you moved files there) or `/` (root).
-    - *Note: Ensure `index.html`, `style.css`, and `script.js` are in the deployed directory.*
+4.  Select `main` (or `master`) branch and `/` (root) folder.
 5.  Click **Save**.
-6.  Wait a few seconds, refresh the page, and your game will be live at `https://<username>.github.io/<repo-name>/`.
+6.  Your game will be live at `https://<your-username>.github.io/Jokenpo/`.
 
 ## How to Play
 1.  **Enter your Name**.
