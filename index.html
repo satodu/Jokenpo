@@ -1,74 +1,103 @@
-<script type="text/javascript">
-	function player(){
-		this.name;
-		this.choice;
-	}
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-	//função que cria a escolha aleatória do computador
-	function computerChoice(){
-		var checkin = Math.floor((Math.random() * 10) + 1);
-		if ( checkin > 0 && checkin < 3 ){
-			return "Tesoura";
-		}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Jokenpo</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
 
-		else if ( checkin > 3 && checkin < 7 ){
-			return "Papel";
-		}
+<body>
+    <div class="container">
+        <!-- Login / Mode Selection Screen -->
+        <div id="login-screen" class="screen active">
+            <h1 class="neon-text">JOKENPO<br><span class="subtitle">BATTLE</span></h1>
 
-		else {
-			return "Pedra";
-		}
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Seu Nickname" maxlength="10">
+            </div>
 
-	}
+            <div class="mode-selection">
+                <button class="btn btn-primary" onclick="joinGame('pvc')">
+                    VS Computador
+                </button>
+                <button class="btn btn-secondary" onclick="joinGame('pvp')">
+                    VS Jogador
+                </button>
+            </div>
+        </div>
 
-	//função que cria batalha
-	function battle(choice1, choice2){
-		 if (choice1 === choice2){
-        return "The result is a tie!";        
-        }
-    else if (choice1 === "Pedra"){
-        if (choice2 ==="Tesoura"){
-            return "Pedra";
-            }
-        else {
-            return "Papel";
-            }    
-        }
-        
-    else if (choice1 === "Papel"){
-        if (choice2 ==="Pedra"){
-            return "Papel";
-            }
-        else {
-            return "Tesoura";
-            }    
-        }
-    else if (choice1 === "Tesoura"){
-        if (choice2 ==="Papel"){
-            return "Papel";
-            }
-        else {
-            return "Pedra";
-            }    
-        }
-    }
-	
+        <!-- Waiting Screen -->
+        <div id="waiting-screen" class="screen">
+            <button class="btn-back" onclick="leaveGame()">← Voltar</button>
+            <div class="loader"></div>
+            <h2>Aguardando Oponente...</h2>
+            <p id="room-id-display"></p>
 
+            <div class="share-container" style="margin-top: 20px; width: 100%;">
+                <p style="margin-bottom: 10px; color: var(--text-muted); font-size: 0.9rem;">Convide um amigo:</p>
+                <div class="input-group" style="display: flex; gap: 10px;">
+                    <input type="text" id="share-link" readonly style="font-size: 0.9rem; padding: 10px;">
+                    <button class="btn btn-primary" onclick="copyLink()"
+                        style="width: auto; margin-top: 0; padding: 10px 20px;">
+                        Copiar
+                    </button>
+                </div>
+            </div>
+        </div>
 
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <button class="btn-back" onclick="leaveGame()">← Voltar</button>
+            <div class="header">
+                <div class="player-info">
+                    <span id="p1-name">Você</span>
+                    <div class="score" id="p1-score">0</div>
+                </div>
+                <div class="vs">VS</div>
+                <div class="player-info">
+                    <span id="p2-name">Oponente</span>
+                    <div class="score" id="p2-score">0</div>
+                </div>
+            </div>
 
-var p1 = new player();
-var computer = new player();
-computer.choice = computerChoice();
+            <div class="arena">
+                <div class="arena-content">
+                    <p id="game-status">Escolha sua jogada!</p>
+                </div>
+            </div>
 
-p1.name = prompt('Qual é seu nome ?');
-p1.choice = prompt('Escolha Pedra, Papel ou Tesoura ?');
-alert('O computador escolheu '+computer.choice);
+            <div class="controls">
+                <button class="move-btn" onclick="makeMove('Pedra')" data-move="Pedra">
+                    ✊ <span class="move-label">Pedra</span>
+                </button>
+                <button class="move-btn" onclick="makeMove('Papel')" data-move="Papel">
+                    ✋ <span class="move-label">Papel</span>
+                </button>
+                <button class="move-btn" onclick="makeMove('Tesoura')" data-move="Tesoura">
+                    ✌️ <span class="move-label">Tesoura</span>
+                </button>
+            </div>
 
-var result = battle(p1.choice,computer.choice);
-if (p1.choice === result){
-	alert('Você ganhou escolhendo '+ result);
-}
-else {
-	alert('Você perdeu escolhendo '+ p1.choice);
-}
-</script>
+            <div id="result-overlay" class="overlay hidden">
+                <div class="result-content">
+                    <h2 id="result-message">YOU WIN</h2>
+                    <button class="btn btn-primary" onclick="resetRound()">Jogar Novamente</button>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            Made by <a href="https://github.com/satodu" target="_blank">Panda</a> 🐼
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="https://unpkg.com/wowify@latest/dist/wowify.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
