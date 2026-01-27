@@ -2,7 +2,7 @@
 
 A modern, real-time Rock-Paper-Scissors game that runs entirely in the browser using Peer-to-Peer (WebRTC) technology.
 
-**Play now**: [https://satodu.github.io/Jokenpo/](https://satodu.github.io/Jokenpo/)
+### [![](https://img.shields.io/badge/PLAY%20NOW-Click%20Here-bb00ff?style=for-the-badge&logo=google-play&logoColor=white)](https://satodu.github.io/Jokenpo/)
 
 ![Neon Jokenpo Screenshot](screenshot.png)
 
