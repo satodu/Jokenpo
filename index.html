@@ -4,101 +4,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Jokenpo</title>
+    <title>JOKENPO. — Oriental Brutalism</title>
     <link rel="icon" type="image/png" href="smile.png">
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts: Space Grotesk (Display), Inter (Corpo), JetBrains Mono (Técnico) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Luz ambiente sutil difusa -->
+    <div class="ambient-glow" aria-hidden="true"></div>
+
     <div class="container">
-        <!-- Login / Mode Selection Screen -->
-        <div id="login-screen" class="screen active">
-            <div class="logo-container" style="margin-bottom: 2rem;">
-                <img src="logo.png" alt="Neon Jokenpo" style="max-width: 200px; width: 100%;">
+        <!-- Barra de Metadados / Cabeçalho Técnico -->
+        <header class="sys-header">
+            <div class="tag-badge">
+                <span class="status-dot"></span>
+                <span>SYS.ONLINE // P2P</span>
             </div>
-            <!-- <h1 class="neon-text">JOKENPO<br><span class="subtitle">BATTLE</span></h1> -->
+            <div class="tech-crosses">+ + + +</div>
+            <div class="hanko-seal">勝負</div>
+        </header>
 
-            <div class="input-group">
-                <input type="text" id="username" placeholder="Seu Nickname" maxlength="10">
-            </div>
+        <!-- 1. Tela Inicial / Seleção de Modo -->
+        <main id="login-screen" class="screen active">
+            <section class="bento-card">
+                <!-- Acentos Surrealistas nos Cantos (Patterns Pequenos Sobrepostos) -->
+                <div class="corner-decal decal-crosses-tr" aria-hidden="true"></div>
+                <div class="corner-decal decal-ellipse-bl" aria-hidden="true"></div>
 
-            <div class="mode-selection">
-                <button id="btn-pvc" class="btn btn-primary" onclick="joinGame('pvc')">
-                    VS Computador
-                </button>
-                <button id="btn-pvp" class="btn btn-secondary" onclick="joinGame('pvp')">
-                    VS Jogador
-                </button>
-            </div>
-        </div>
+                <span class="writing-vertical">構造・始</span>
 
-        <!-- Waiting Screen -->
-        <div id="waiting-screen" class="screen">
-            <button class="btn-back" onclick="leaveGame()">← Voltar</button>
-            <div class="loader"></div>
-            <h2>Aguardando Oponente...</h2>
-            <p id="room-id-display"></p>
+                <div class="brand-crest">
+                    <img src="logo_icon.png" alt="Jokenpo Kamon" class="brand-crest-img">
+                </div>
 
-            <div class="share-container" style="margin-top: 20px; width: 100%;">
-                <p style="margin-bottom: 10px; color: var(--text-muted); font-size: 0.9rem;">Convide um amigo:</p>
-                <div class="input-group" style="display: flex; gap: 10px;">
-                    <input type="text" id="share-link" readonly style="font-size: 0.9rem; padding: 10px;">
-                    <button class="btn btn-primary" onclick="copyLink()"
-                        style="width: auto; margin-top: 0; padding: 10px 20px;">
-                        Copiar
+                <h1 class="title-display">JOKENPO<span class="accent-dot">.</span></h1>
+                <div class="title-sub">
+                    <span>#01</span>
+                    <span>/</span>
+                    <span>JAN-KEN-PON ARENA</span>
+                </div>
+
+                <div class="input-wrapper">
+                    <div class="input-label">
+                        <span>IDENTIFICADOR</span>
+                        <span>[ NICKNAME ]</span>
+                    </div>
+                    <div class="input-box">
+                        <span class="mono-prefix">ID.</span>
+                        <input type="text" id="username" placeholder="Digite seu codinome" maxlength="12" autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+
+                <div class="mode-selection">
+                    <button id="btn-pvc" class="btn btn-primary" onclick="joinGame('pvc')">
+                        <span>PvC. BOT</span>
+                    </button>
+                    <button id="btn-pvp" class="btn btn-secondary" onclick="joinGame('pvp')">
+                        <span>PvP. VERSUS</span>
                     </button>
                 </div>
-            </div>
-        </div>
+            </section>
+        </main>
 
-        <!-- Game Screen -->
-        <div id="game-screen" class="screen">
-            <button class="btn-back" onclick="leaveGame()">← Voltar</button>
-            <div class="header">
-                <div class="player-info">
-                    <span id="p1-name">Você</span>
+        <!-- 2. Tela de Espera / Lobby P2P -->
+        <section id="waiting-screen" class="screen">
+            <button class="btn-back" onclick="leaveGame()">
+                <span>←</span> CANCELAR
+            </button>
+
+            <div class="bento-card waiting-box">
+                <span class="writing-vertical">接続・待</span>
+                <div class="loader-minimal"></div>
+                <h2 style="font-family: var(--font-display); font-size: 1.5rem; letter-spacing: -0.02em;">AGUARDANDO OPONENTE<span class="accent-dot">.</span></h2>
+                <p id="room-id-display" class="room-tag">INICIALIZANDO CONEXÃO...</p>
+
+                <div class="share-container">
+                    <p>CONVIDE UM OPONENTE [ LINK DIRETO ]:</p>
+                    <div class="share-input-group">
+                        <input type="text" id="share-link" readonly value="Gerando link...">
+                        <button class="btn btn-primary" onclick="copyLink()" style="padding: 0.65rem 1.25rem;">
+                            COPIAR
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Tela de Jogo / Arena Bento Grid -->
+        <section id="game-screen" class="screen">
+            <button class="btn-back" onclick="leaveGame()">
+                <span>←</span> SAIR DA BATALHA
+            </button>
+
+            <!-- Placar Bento -->
+            <div class="game-scoreboard">
+                <div class="player-card">
+                    <span class="p-meta">P.01 [ YOU ]</span>
+                    <span id="p1-name" class="p-name">Você</span>
                     <div class="score" id="p1-score">0</div>
                 </div>
-                <div class="vs">VS</div>
-                <div class="player-info">
-                    <span id="p2-name">Oponente</span>
+
+                <div class="scoreboard-divider">
+                    <span class="vs-text">VS.</span>
+                </div>
+
+                <div class="player-card opponent">
+                    <span class="p-meta">P.02 [ RIVAL ]</span>
+                    <span id="p2-name" class="p-name">Oponente</span>
                     <div class="score" id="p2-score">0</div>
                 </div>
             </div>
 
-            <div class="arena">
-                <div class="arena-content">
-                    <p id="game-status">Escolha sua jogada!</p>
+            <!-- Arena de Status & Duelo Dinâmico -->
+            <div class="arena" id="arena-stage">
+                <!-- Acentos Surrealistas de Canto na Arena -->
+                <div class="corner-decal decal-crosses-tl" aria-hidden="true"></div>
+                <div class="corner-decal decal-ellipse-br" aria-hidden="true"></div>
+
+                <div class="arena-kanji-bg">闘</div>
+                <div class="arena-content" id="arena-content">
+                    <p id="game-status">Escolha sua jogada para iniciar o combate.</p>
+                    <span class="status-caption">RODADA EM ANDAMENTO // DECIDA SEU GOLPE</span>
+                </div>
+                <!-- Palco animado com GSAP para o choque das mãos -->
+                <div class="arena-duel hidden" id="arena-duel">
+                    <div class="duel-fighter duel-left" id="duel-fighter-left">
+                        <img src="hand_rock.jpg" alt="Você" class="duel-img" id="duel-img-left">
+                        <span class="duel-label" id="duel-label-left">VOCÊ</span>
+                    </div>
+                    <div class="duel-vs-spark" id="duel-spark">
+                        <span class="spark-kanji">撃</span>
+                    </div>
+                    <div class="duel-fighter duel-right" id="duel-fighter-right">
+                        <img src="hand_paper.jpg" alt="Rival" class="duel-img" id="duel-img-right">
+                        <span class="duel-label" id="duel-label-right">RIVAL</span>
+                    </div>
                 </div>
             </div>
 
+            <!-- Controles de Jogada (Bento Grid 3 colunas com Ilustrações P&B e Hanko Kanjis) -->
             <div class="controls">
-                <button class="move-btn" onclick="makeMove('Pedra')" data-move="Pedra">
-                    ✊ <span class="move-label">Pedra</span>
+                <button class="move-btn" onclick="makeMove('Pedra')" data-move="Pedra" title="Pedra">
+                    <span class="move-kanji">拳</span>
+                    <div class="move-img-wrap">
+                        <img src="hand_rock.jpg" alt="Pedra" class="move-img">
+                    </div>
+                    <span class="move-label">Pedra</span>
                 </button>
-                <button class="move-btn" onclick="makeMove('Papel')" data-move="Papel">
-                    ✋ <span class="move-label">Papel</span>
+
+                <button class="move-btn" onclick="makeMove('Papel')" data-move="Papel" title="Papel">
+                    <span class="move-kanji">紙</span>
+                    <div class="move-img-wrap">
+                        <img src="hand_paper.jpg" alt="Papel" class="move-img">
+                    </div>
+                    <span class="move-label">Papel</span>
                 </button>
-                <button class="move-btn" onclick="makeMove('Tesoura')" data-move="Tesoura">
-                    ✌️ <span class="move-label">Tesoura</span>
+
+                <button class="move-btn" onclick="makeMove('Tesoura')" data-move="Tesoura" title="Tesoura">
+                    <span class="move-kanji">鋏</span>
+                    <div class="move-img-wrap">
+                        <img src="hand_scissors.jpg" alt="Tesoura" class="move-img">
+                    </div>
+                    <span class="move-label">Tesoura</span>
                 </button>
             </div>
 
+            <!-- Modal / Overlay de Resultado -->
             <div id="result-overlay" class="overlay hidden">
                 <div class="result-content">
-                    <h2 id="result-message">YOU WIN</h2>
-                    <button class="btn btn-primary" onclick="resetRound()">Jogar Novamente</button>
+                    <!-- Acento Surrealista de Canto no Resultado -->
+                    <div class="corner-decal decal-ellipse-tr" aria-hidden="true"></div>
+
+                    <div id="result-stamp" class="result-stamp">勝</div>
+                    <h2 id="result-message">YOU WIN.</h2>
+                    <button class="btn btn-primary" onclick="resetRound()" style="width: 100%;">
+                        NOVA RODADA
+                    </button>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Rodapé Minimalista -->
         <footer class="footer">
-            Made by <a href="https://github.com/satodu" target="_blank">Panda</a> 🐼
+            <div>
+                <span>SYS:</span> <a href="https://github.com/satodu" target="_blank" rel="noopener noreferrer">PANDA</a>
+            </div>
+            <div class="tech-crosses">+ + + +</div>
+            <div>
+                <span>[ 0.2.0 ]</span>
+            </div>
         </footer>
     </div>
 
+    <!-- Scripts: GSAP 3, PeerJS, Wowify, App Logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
     <script src="https://unpkg.com/wowify@latest/dist/wowify.min.js"></script>
     <script src="script.js"></script>
